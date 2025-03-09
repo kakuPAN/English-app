@@ -1,0 +1,24 @@
+<div class="sentence-body">
+  <% @words.each do |word| %>
+    <%= link_to "#{word.content}",unknown_words_path(word_id: word.id), data: { turbo_method: :post }, remote: true, class: "word-content" %>
+  <% end %>
+</div>
+
+<style>
+  .sentence-body {
+    width: 70%;
+    margin: auto;
+    margin-top: 100px;
+    border: solid 2px #ddd;
+    padding: 10px;
+    background: black;
+  }
+  .word-content {
+    margin: 5px 5px;
+    color: #fff;
+    font-weight: bold;
+  }
+  .word-content:hover {
+    color: red;
+  }
+</style>

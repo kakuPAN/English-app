@@ -1,0 +1,14 @@
+<%= form_with model: @sentence, local: true do |f| %>
+  <div class="form-group">
+    <%= render "shared/error_messages", object: f.object %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :content, class: "form-label" %>
+    <%= f.text_field :content, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "保存", class: "form-control btn btn-outline-primary" %>
+  </div>
+<% end %>

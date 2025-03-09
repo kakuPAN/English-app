@@ -1,0 +1,33 @@
+<% if @meaning.errors.present? %>
+  <%= turbo_stream.replace "meaning-form" do %>
+    <%= render 'meanings/form', unknown_word: @unknown_word, meaning: @meaning %>
+  <% end %>
+  <%= turbo_stream.append "error-messages-#{@unknown_word.id}" do %>
+    <div class="error-message">1文字以上100文字以内で入力してください</div>
+    <!-- @meaningは全てのフォームに同じものを渡しているため-->
+    <!-- エラーメッセージが一番最初のフォーム上に表示されてしまう。-->
+    <!-- 今回の場合、文字数以外のエラーはないので、turbo_streamで代わりに表示する。-->
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "word-#{@unknown_word.id}" do %>
+     <li>意味: <%= @meaning.content %></li>
+  <% end %>
+  <%= turbo_stream.replace "meaning-form" do %>
+    <%= render 'meanings/form', unknown_word: @unknown_word, meaning: Meaning.new %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.append "error-messages" do %>
+  <div id="replace-flash-message">
+    <% if flash.now[:success] || flash.now[:danger] %>
+      <div class="alert-label">Wクリックで削除</div>
+      <div class="alert alert-success flash-message">
+        <% if flash.now[:success] %>
+          <%= flash.now[:success] %>
+        <% elsif flash.now[:danger] %>
+          <%= flash.now[:danger] %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
