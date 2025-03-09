@@ -85,8 +85,6 @@ production:
   primary: &primary_production
     <<: *default
     database: engapp_production
-    username: engapp
-    password: <%= ENV["ENGAPP_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: engapp_production_cache

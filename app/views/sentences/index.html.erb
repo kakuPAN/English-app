@@ -1,0 +1,9 @@
+<ul>
+  <% @sentences.each do |sentence| %>
+    <li><%= link_to "英文#{sentence.id}", sentence_path(sentence)%></li>
+  <% end %>
+</ul>
+
+<style>
+  
+</style>

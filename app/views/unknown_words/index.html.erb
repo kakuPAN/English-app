@@ -1,0 +1,29 @@
+<ul>  
+  <% @unknown_words.each do |unknown_word| %>
+    <li>
+      <div class="word-content"><%= unknown_word.word.content %></div>
+     <!-- 意味を追加するフォーム -->
+      <div id="error-messages-<%= unknown_word.id %>"></div>
+      <%= render "meanings/form", unknown_word: unknown_word, meaning: @meaning  %>
+        <!-- 既存の意味リスト -->
+      <ul id="word-<%= unknown_word.id %>">
+        <% unknown_word.meanings.each do |meaning| %>
+          <li id="meaning-<%= meaning.id %>">
+            <%= link_to meaning_path(meaning), data: { turbo_method: :delete } do %>
+              <i class="bi bi-x-circle"></i>
+            <% end %>
+            意味: <%= meaning.content %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
+
+<style>
+
+.word-content {
+  font-size: 30px;
+  font-weight: bold;
+}
+</style>
