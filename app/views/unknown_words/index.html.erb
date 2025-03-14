@@ -1,18 +1,32 @@
 <ul>  
   <% @unknown_words.each do |unknown_word| %>
-    <li>
-      <div class="word-content"><%= unknown_word.word.content %></div>
+    <li id="unknown-word-container-<%= unknown_word.id %>">
+      <%= link_to unknown_word_path(unknown_word), data: { turbo_method: :delete } do %>
+        <i class="bi bi-calendar2-x-fill"></i>
+      <% end %>
+      <div class="word-content"><%= unknown_word.content %></div>
      <!-- 意味を追加するフォーム -->
       <div id="error-messages-<%= unknown_word.id %>"></div>
       <%= render "meanings/form", unknown_word: unknown_word, meaning: @meaning  %>
         <!-- 既存の意味リスト -->
-      <ul id="word-<%= unknown_word.id %>">
+      <ul id="unknown-word-meaning-container-<%= unknown_word.id %>">
         <% unknown_word.meanings.each do |meaning| %>
           <li id="meaning-<%= meaning.id %>">
             <%= link_to meaning_path(meaning), data: { turbo_method: :delete } do %>
               <i class="bi bi-x-circle"></i>
             <% end %>
             意味: <%= meaning.content %>
+          </li>
+        <% end %>
+      </ul>
+      <%= render "examples/form", unknown_word: unknown_word, example: @example %>
+      <ul id="unknown-word-example-container-<%= unknown_word.id %>">
+        <% unknown_word.examples.each do |example| %>
+          <li id="example-<%= example.id %>">
+            <%= link_to example_path(example), data: { turbo_method: :delete } do %>
+              <i class="bi bi-x-circle"></i>
+            <% end %>
+            例文: <%= example.content %>
           </li>
         <% end %>
       </ul>

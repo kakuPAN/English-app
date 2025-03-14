@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :words
   resources :unknown_words
   resources :meanings
+  resources :examples
 end

@@ -1,24 +1,24 @@
-<% if @meaning.errors.present? %>
-  <%= turbo_stream.replace "meaning-form" do %>
-    <%= render 'meanings/form', unknown_word: @unknown_word, meaning: @meaning %>
+<% if @example.errors.present? %>
+  <%= turbo_stream.replace "example-form" do %>
+    <%= render 'examples/form', unknown_word: @unknown_word, example: @example %>
   <% end %>
   <%= turbo_stream.append "error-messages-#{@unknown_word.id}" do %>
     <div class="error-message">1文字以上100文字以内で入力してください</div>
-    <!-- @meaningは全てのフォームに同じものを渡しているため-->
+    <!-- @exampleは全てのフォームに同じものを渡しているため-->
     <!-- エラーメッセージが一番最初のフォーム上に表示されてしまう。-->
     <!-- 今回の場合、文字数以外のエラーはないので、turbo_streamで代わりに表示する。-->
   <% end %>
 <% else %>
-  <%= turbo_stream.append "unknown-word-meaning-container-#{@unknown_word.id}" do %>
-    <li id="meaning-<%= @meaning.id %>">
-      <%= link_to meaning_path(@meaning), data: { turbo_method: :delete } do %>
+  <%= turbo_stream.append "unknown-word-example-container-#{@unknown_word.id}" do %>
+    <li id="example-<%= @example.id %>">
+      <%= link_to example_path(@example), data: { turbo_method: :delete } do %>
         <i class="bi bi-x-circle"></i>
       <% end %>
-      意味: <%= @meaning.content %>
+      例文: <%= @example.content %>
     </li>
   <% end %>
-  <%= turbo_stream.replace "meaning-form" do %>
-    <%= render 'meanings/form', unknown_word: @unknown_word, meaning: Meaning.new %>
+  <%= turbo_stream.replace "example-form" do %>
+    <%= render 'examples/form', unknown_word: @unknown_word, example: Example.new %>
   <% end %>
 <% end %>
 

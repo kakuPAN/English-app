@@ -1,4 +1,4 @@
 class UnknownWord < ApplicationRecord
-  belongs_to :word
-  has_many :meanings
+  has_many :meanings, dependent: :destroy
+  has_many :examples, dependent: :destroy
 end

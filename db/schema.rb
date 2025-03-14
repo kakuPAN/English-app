@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_09_054929) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_13_060844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "examples", force: :cascade do |t|
+    t.bigint "unknown_word_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["unknown_word_id"], name: "index_examples_on_unknown_word_id"
+  end
 
   create_table "meanings", force: :cascade do |t|
     t.bigint "unknown_word_id", null: false
@@ -29,10 +37,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_09_054929) do
   end
 
   create_table "unknown_words", force: :cascade do |t|
-    t.bigint "word_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["word_id"], name: "index_unknown_words_on_word_id"
+    t.text "content", null: false
+    t.index ["content"], name: "index_unknown_words_on_content", unique: true
   end
 
   create_table "words", force: :cascade do |t|
@@ -44,7 +52,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_09_054929) do
     t.index ["sentence_id"], name: "index_words_on_sentence_id"
   end
 
+  add_foreign_key "examples", "unknown_words"
   add_foreign_key "meanings", "unknown_words"
-  add_foreign_key "unknown_words", "words"
   add_foreign_key "words", "sentences"
 end
