@@ -1,12 +1,12 @@
-class MeaningsController < ApplicationController
+class ExamplesController < ApplicationController
   def create
     @unknown_word = UnknownWord.find(params[:unknown_word_id])
-    @meaning = @unknown_word.meanings.build(meaning_params)
-    @meaning.unknown_word_id = @unknown_word.id
+    @example = @unknown_word.examples.build(example_params)
+    @example.unknown_word_id = @unknown_word.id
     respond_to do |format|
-      if @meaning.save
+      if @example.save
         format.turbo_stream do
-          flash.now[:success] = "#{@unknown_word.content}に意味:#{@meaning.content}を追加"
+          flash.now[:success] = "#{@unknown_word.content}に例文を追加"
         end
       else
         format.turbo_stream do
@@ -17,11 +17,11 @@ class MeaningsController < ApplicationController
   end
 
   def destroy
-    @meaning = Meaning.find(params[:id])
+    @example = Example.find(params[:id])
     respond_to do |format|
-      if @meaning.destroy
+      if @example.destroy
         format.turbo_stream do
-          flash.now[:success] = "#{@meaning.content}を削除しました"
+          flash.now[:success] = "例文を削除しました"
         end
       else
         format.turbo_stream do
@@ -33,8 +33,9 @@ class MeaningsController < ApplicationController
 
   private
 
-  def meaning_params
-    params.require(:meaning).permit(:content, :unknown_word_id)
+  def example_params
+    params.require(:example).permit(:content, :unknown_word_id)
   end
-end
 
+
+end

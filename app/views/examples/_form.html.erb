@@ -1,0 +1,7 @@
+<div id="example-form">
+  <%= form_with model: example, url: examples_path(unknown_word_id: unknown_word.id), data: { turbo_method: :post } do |f| %>
+    <%= f.text_area :content, placeholder: "例文を追加", class: "form-control" %>
+    <%= f.hidden_field :unknown_word_id, value: unknown_word.id %>
+    <%= f.submit "追加", class: "btn btn-primary btn-sm" %>
+  <% end %>
+</div>
