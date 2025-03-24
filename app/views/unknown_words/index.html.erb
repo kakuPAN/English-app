@@ -1,14 +1,14 @@
-<ul>  
+<ul class="unknown-word-top">  
   <% @unknown_words.each do |unknown_word| %>
-    <li id="unknown-word-container-<%= unknown_word.id %>">
+    <li class="unknown-word-container" id="unknown-word-container-<%= unknown_word.id %>">
       <%= link_to unknown_word_path(unknown_word), data: { turbo_method: :delete } do %>
         <i class="bi bi-calendar2-x-fill"></i>
       <% end %>
       <div class="word-content"><%= unknown_word.content %></div>
-     <!-- 意味を追加するフォーム -->
-      <div id="error-messages-<%= unknown_word.id %>"></div>
+      <div id="error-messages-<%= unknown_word.id %>"></div><!-- エラーメッセージ（一番上に全て出てしまうことへの対策） -->
+      <!-- 意味を追加するフォーム -->
       <%= render "meanings/form", unknown_word: unknown_word, meaning: @meaning  %>
-        <!-- 既存の意味リスト -->
+      <!-- 既存の意味リスト -->
       <ul id="unknown-word-meaning-container-<%= unknown_word.id %>">
         <% unknown_word.meanings.each do |meaning| %>
           <li id="meaning-<%= meaning.id %>">
@@ -19,7 +19,9 @@
           </li>
         <% end %>
       </ul>
+       <!-- 例文を追加するフォーム -->
       <%= render "examples/form", unknown_word: unknown_word, example: @example %>
+      <!-- 例文リスト -->
       <ul id="unknown-word-example-container-<%= unknown_word.id %>">
         <% unknown_word.examples.each do |example| %>
           <li id="example-<%= example.id %>">
@@ -35,6 +37,15 @@
 </ul>
 
 <style>
+.unknown-word-top {
+  margin: 50px;
+}
+.unknown-word-container {
+  border-bottom: 3px solid #ddd;
+  border-color: skyblue;
+  width: 600px;
+  margin-bottom: 10px;
+}
 
 .word-content {
   font-size: 30px;

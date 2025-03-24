@@ -1,9 +1,42 @@
-<ul>
+<div class="sentences-container">
   <% @sentences.each do |sentence| %>
-    <li><%= link_to "英文#{sentence.id}", sentence_path(sentence)%></li>
+    <div class="sentence-content">
+      <%= link_to "英文#{sentence.id}", sentence_path(sentence) %>
+    </div>
   <% end %>
-</ul>
+</div>
 
 <style>
-  
+  .sentences-container {
+    width: 600px;
+    margin: auto;
+  }
+
+  .sentence-content {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .sentence-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .sentence-content a {
+    font-size: 22px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+  }
+
+  .sentence-content a:hover {
+    color: #007bff;
+  }
 </style>
