@@ -6,8 +6,12 @@ class UnknownWordsController < ApplicationController
   end
 
   def create
-    word = Word.find(params[:word_id])
-    @unknown_word = UnknownWord.new(content: word.content)
+    @word = Word.find(params[:word_id])
+    if UnknownWord.find_by(content: @word.content)
+      return 
+      # ビュー側で登録済みであることを明示し、こちらでは特に処理しない。
+    end
+    @unknown_word = UnknownWord.new(content: @word.content)
     respond_to do |format|
       if @unknown_word.save
         format.turbo_stream do

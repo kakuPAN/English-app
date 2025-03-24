@@ -1,6 +1,7 @@
 <div class="sentence-body">
   <% @words.each do |word| %>
-    <%= link_to "#{word.content}",unknown_words_path(word_id: word.id), data: { turbo_method: :post }, remote: true, class: "word-content" %>
+    <% registered = true if UnknownWord.find_by(content: word.content) %>
+    <%= link_to "#{word.content}",unknown_words_path(word_id: word.id), data: { turbo_method: :post }, remote: true, class: "word-content #{registered ? 'registered' : ''}", id: "word-#{word.id}" %>
   <% end %>
 </div>
 
@@ -10,15 +11,28 @@
     margin: auto;
     margin-top: 100px;
     border: solid 2px #ddd;
-    padding: 10px;
+    padding: 20px;
     background: black;
+    text-align: center;
+    border-radius: 10px;
   }
+
   .word-content {
-    margin: 5px 5px;
+    margin: 8px;
     color: #fff;
     font-weight: bold;
+    font-size: 22px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  .registered {
+    color:rgb(51, 169, 232);
   }
   .word-content:hover {
-    color: red;
+    transform: scale(1.05);
+    color:rgb(51, 169, 232);
+    text-shadow: 0 0 10px rgba(70, 203, 224, 0.8);
   }
 </style>

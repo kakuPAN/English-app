@@ -1,3 +1,7 @@
+<%= turbo_stream.replace "word-#{@word.id}" do %>
+  <%= link_to "#{@word.content}", unknown_words_path(word_id: @word.id), data: { turbo_method: :post }, remote: true, class: "word-content registered", id: "word-#{@word.id}" %>
+<% end %>
+
 <%= turbo_stream.append "error-messages" do %>
   <div id="replace-flash-message">
     <% if flash.now[:success] || flash.now[:danger] %>
